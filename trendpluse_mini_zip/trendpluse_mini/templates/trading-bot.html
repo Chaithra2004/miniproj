@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Stock Trading Bot</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <style>
+        canvas {
+            max-width: 600px; /* Increased canvas width */
+            max-height: 600px; /* Increased canvas height */
+            margin: 0 auto; /* Center the canvas */
+            display: block;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-Time Stock Trading Bot</h1>
+    <h2>Stock Symbol: {{ stock_symbol }}</h2>
+    <canvas id="stockChart"></canvas>
+
+    <script>
+        const socket = io();
+
+        // Initialize Chart.js
+        const ctx = document.getElementById('stockChart').getContext('2d');
+        const stockChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [], // Timestamps
+                datasets: [{
+                    label: 'Stock Price ($)',
+                    data: [], // Stock prices
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                    borderWidth: 2,
+                    pointRadius: 4,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Time', font: { size: 16 } },
+                        ticks: { font: { size: 14 } }
+                    },
+                    y: {
+                        title: { display: true, text: 'Stock Price ($)', font: { size: 16 } },
+                        ticks: { font: { size: 14 } },
+                        grid: { color: 'rgba(200, 200, 200, 0.2)' } // Light grid lines
+                    }
+                },
+                plugins: {
+                    legend: { display: true, labels: { font: { size: 14 } } }
+                },
+                responsive: true,
+                maintainAspectRatio: false, // Allow the graph to stretch
+                layout: {
+                    padding: { top: 20, bottom: 20, left: 20, right: 20 }
+                }
+            }
+        });
+
+        // Start receiving stock updates
+        socket.on('stock_update', (data) => {
+            const time = data.time;
+            const price = data.price;
+
+            // Add new data to the chart
+            stockChart.data.labels.push(time);
+            stockChart.data.datasets[0].data.push(price);
+
+            // Keep only the last 10 data points
+            if (stockChart.data.labels.length > 10) {
+                stockChart.data.labels.shift();
+                stockChart.data.datasets[0].data.shift();
+            }
+
+            stockChart.update();
+
+            // Log trading actions (if any)
+            if (data.action) {
+                console.log(`${data.action} action triggered at ${price}`);
+            }
+        });
+
+        // Start the simulation
+        socket.emit('start_simulation');
+    </script>
+</body>
+</html>

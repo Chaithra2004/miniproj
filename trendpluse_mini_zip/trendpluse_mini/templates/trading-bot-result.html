@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Bot Result</title>
+    <style>
+        /* Define a CSS variable for easy color customization */
+        :root {
+            --primary-color: #007bff;
+            --background-color: #f4f4f9;
+            --text-color: #333;
+            --box-shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .result-box {
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 10px var(--box-shadow-color);
+            border-radius: 8px;
+            max-width: 600px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        .plot-section img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--box-shadow-color);
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background: var(--primary-color);
+            color: white;
+            font-size: 0.9rem;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .result-box {
+                padding: 15px;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="result-box">
+            <h2>Trading Bot Result</h2>
+            <p><strong>Stock Symbol:</strong> {{ stock_symbol }}</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="result-box plot-section">
+            <h2>Stock Price Graph</h2>
+            <img src="data:image/png;base64,{{ plot_data }}" alt="Stock price graph showing real-time stock trends">
+        </div>
+    </main>
+
+    <footer>
+        <p>© TrendPulse | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

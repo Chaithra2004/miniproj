@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   <title>AI Predictions Result</title>
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .result-box {
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 600px;
+        }
+        h2 {
+            color: #007bff;
+        }
+        p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        ul {
+            text-align: left;
+            padding: 0;
+            list-style-type: none;
+        }
+        ul li {
+            padding: 5px 0;
+            font-size: 1rem;
+        }
+        .plot-section img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h2>AI Prediction Results</h2>
+        <p><strong>Region:</strong> {{ region }}</p>
+        <p><strong>Product:</strong> {{ product }}</p>
+        <p><strong>Price:</strong> ₹{{ price }}</p>
+        <p><strong>Selected Gadgets:</strong></p>
+        <ul>
+            {% for gadget in gadgets %}
+            <li>{{ gadget }}</li>
+            {% endfor %}
+        </ul>
+        <p><strong>Prediction:</strong> {{ prediction_message }}</p>
+        {% if percentage_decrease is not none %}
+        <p><strong>Percentage Decrease:</strong> {{ "%.2f"|format(percentage_decrease) }}%</p>
+        {% endif %}
+        <p><strong>Recommendation:</strong> {{ recommendation_message }}</p>
+    </div>
+
+    <div class="result-box plot-section">
+        <h2>Prediction Analysis</h2>
+        <p>{{ prediction_message }}</p>
+        <img src="data:image/png;base64,{{ plot_data }}" alt="Predicted Stock Changes Plot">
+    </div>
+
+    <footer>
+       <p>© TrendPulse</p>
+    </footer>
+</body>
+</html>

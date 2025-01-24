@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .result-box {
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 600px;
+        }
+        h2 {
+            color: #007bff;
+        }
+        p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+        .plot-section img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h2>Market Analysis Result</h2>
+        <p><strong>Company Code:</strong> {{ company_code }}</p>
+        <p><strong>Prediction:</strong> {{ prediction_message }}</p>
+    </div>
+
+    <div class="result-box plot-section">
+        <h2>Prediction Analysis</h2>
+        <img src="data:image/png;base64,{{ plot_data }}" alt="Predicted Stock Changes Plot">
+    </div>
+
+    <footer>
+        <p>© TrendPulse</p>
+    </footer>
+</body>
+</html>

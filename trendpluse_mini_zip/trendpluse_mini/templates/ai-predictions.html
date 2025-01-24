@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Predictions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .dialog-box {
+            width: 90%;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="dialog-box">
+        <h2>AI Predictions</h2>
+        <form method="POST" action="/ai-predictions">
+            <label for="region">Region</label>
+            <input type="text" id="region" name="region" value="India" readonly>
+
+            <label for="product">Product</label>
+            <input type="text" id="product" name="product" value="Electronics Gadgets" readonly>
+
+            <label for="price">Price (₹)</label>
+            <input type="number" id="price" name="price" placeholder="Enter the price" required>
+
+            <label for="gadgets">Select Gadgets (Choose up to 8)</label>
+            <select id="gadgets" name="gadgets" multiple required>
+                {% for gadget in gadgets %}
+                <option value="{{ gadget }}">{{ gadget }}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
